@@ -1,5 +1,5 @@
 pub mod station {
-    #[derive(Default)]
+    #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
     pub struct Station {
         value: f32, // TODO implement as fixed-point value
     }
@@ -7,7 +7,7 @@ pub mod station {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             write!(
                 f,
-                "{}+{:02.}",
+                "{}+{:05.2}",
                 self.get_station_num(),
                 self.get_station_plus()
             )
@@ -20,10 +20,10 @@ pub mod station {
         pub fn get_station_plus(&self) -> f32 {
             self.value % 100.0
         }
-        pub fn set_station_num(&mut self, new_val: i32) -> () {
+        pub fn _set_station_num(&mut self, new_val: i32) -> () {
             self.value = self.get_station_plus() + 100.0 * new_val as f32;
         }
-        pub fn set_station_plus(&mut self, new_val: f32) -> () {
+        pub fn _set_station_plus(&mut self, new_val: f32) -> () {
             self.value = self.get_station_num() as f32 + (new_val % 100.0)
         }
     }
@@ -31,6 +31,19 @@ pub mod station {
     pub mod ui {
         use super::*;
         use eframe::egui::{Response, Ui, Widget};
+
+        impl Station {
+            fn get_set_raw_sta(&mut self, new_val: Option<f64>) -> f64 {
+                match new_val {
+                    Some(v) => self.value = v as f32,
+                    None => {}
+                };
+                self.value as f64
+            }
+            pub fn from_f64(v: f64) -> Self {
+                Station { value: v as f32 }
+            }
+        }
 
         pub struct StationEditor<'a> {
             sta: &'a mut Station,
@@ -42,13 +55,15 @@ pub mod station {
         }
         impl<'a> Widget for StationEditor<'a> {
             fn ui(self, ui: &mut Ui) -> Response {
-                let inner = ui.horizontal(|ui| {
-                    ui.label(format!("STA {}", self.sta));
-                    let mut tmp = 5;
-                    let _ = ui
-                        .add(eframe::egui::DragValue::new(&mut tmp).speed(1.0));
-                });
-                inner.response
+                ui.add(
+                    eframe::egui::DragValue::from_get_set(|v| {
+                        self.sta.get_set_raw_sta(v)
+                    })
+                    .custom_formatter(|val, _| {
+                        Station::from_f64(val).to_string()
+                    })
+                    .speed(1.0),
+                )
             }
         }
     }
