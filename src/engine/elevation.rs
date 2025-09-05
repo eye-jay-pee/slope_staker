@@ -8,7 +8,7 @@ impl std::fmt::Display for Elevation {
 }
 impl eframe::egui::emath::Numeric for Elevation {
     const INTEGRAL: bool = false;
-    const MIN: Self = Elevation(f64::MIN);
+    const MIN: Self = Elevation(0.0);
     const MAX: Self = Elevation(f64::MAX);
 
     fn to_f64(self) -> f64 {
