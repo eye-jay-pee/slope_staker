@@ -1,4 +1,6 @@
-use crate::engine::station::Station;
+use crate::engine::{
+    breakpoint::kind::BreakPointKind, elevation::Elevation, station::Station,
+};
 use eframe::egui;
 
 #[derive(Default)]
@@ -6,6 +8,8 @@ pub struct SlopeStakerApp {
     _file: Option<std::path::PathBuf>,
 
     sta: Station,
+    elev: Elevation,
+    bpk: BreakPointKind,
 }
 
 impl SlopeStakerApp {
@@ -26,11 +30,15 @@ impl SlopeStakerApp {
 
 impl eframe::App for SlopeStakerApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        use crate::engine::breakpoint::kind::ui::BreakPointKindSelector;
+        use crate::engine::elevation::ui::ElevationEditor;
         use crate::engine::station::ui::StationEditor;
 
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.group(|ui| {
                 ui.add(StationEditor::new(&mut self.sta));
+                ui.add(ElevationEditor::new(&mut self.elev));
+                ui.add(BreakPointKindSelector::new(&mut self.bpk))
             })
         });
     }

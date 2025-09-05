@@ -2596,6 +2596,8 @@ dependencies = [
  "eframe",
  "epaint",
  "fixed",
+ "strum",
+ "strum_macros",
 ]
 
 [[package]]
