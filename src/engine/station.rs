@@ -47,11 +47,6 @@ pub mod ui {
     use eframe::egui::{Response, Ui, Widget};
 
     pub struct StationEditor<'a>(&'a mut Station);
-    impl<'a> StationEditor<'a> {
-        pub fn new(sta: &'a mut Station) -> Self {
-            Self(sta)
-        }
-    }
     impl<'a> Widget for StationEditor<'a> {
         fn ui(self, ui: &mut Ui) -> Response {
             use eframe::egui::DragValue;

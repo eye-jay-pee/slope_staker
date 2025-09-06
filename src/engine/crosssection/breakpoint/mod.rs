@@ -1,8 +1,9 @@
+pub mod elevation;
 pub mod kind;
 pub mod offset;
 pub mod slope;
 
-use super::elevation::Elevation;
+use elevation::Elevation;
 use offset::Offset;
 use slope::Slope;
 
@@ -39,7 +40,7 @@ pub mod ui {
     }
     impl<'a> Widget for BreakPointEditor<'a> {
         fn ui(self, ui: &mut Ui) -> Response {
-            use super::super::elevation::ui::ElevationEditor;
+            use super::elevation::ui::ElevationEditor;
             use super::kind::ui::BreakPointKindSelector;
             use super::offset::ui::OffsetEditor;
             use super::slope::ui::SlopeEditor;

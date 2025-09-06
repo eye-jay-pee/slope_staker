@@ -1,11 +1,11 @@
-use crate::engine::crosssection::CrossSection;
+use crate::engine::crosssection::slopestake::SlopeStake;
 use eframe::egui;
 
 #[derive(Default)]
 pub struct SlopeStakerApp {
     _file: Option<std::path::PathBuf>,
 
-    cs: CrossSection,
+    ss: SlopeStake,
 }
 
 impl SlopeStakerApp {
@@ -26,15 +26,15 @@ impl SlopeStakerApp {
 
 impl eframe::App for SlopeStakerApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        use crate::engine::crosssection::ui::CrossSectionEditor;
+        use crate::engine::crosssection::slopestake::ui::CrossSectionEditor;
 
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.group(|ui| {
-                ui.add(CrossSectionEditor::new(&mut self.cs));
+                ui.add(CrossSectionEditor::new(&mut self.ss));
             });
 
             ui.group(|ui| {
-                let text = format!("{}", self.cs);
+                let text = format!("{}", self.ss);
                 ui.add(
                     eframe::egui::TextEdit::multiline(
                         &mut text.to_string().as_str(),
@@ -53,8 +53,8 @@ pub mod utilities {
     use eframe::egui::{Response, Ui, Widget};
 
     #[derive(Debug, Default)]
-    pub struct AddButton();
-    impl Widget for AddButton {
+    pub struct PlusButton();
+    impl Widget for PlusButton {
         fn ui(self, ui: &mut Ui) -> Response {
             ui.add(
                 Button::new(egui::RichText::new("+").color(Color32::BLACK))
@@ -63,8 +63,8 @@ pub mod utilities {
         }
     }
     #[derive(Debug, Default)]
-    pub struct CloseButton();
-    impl Widget for CloseButton {
+    pub struct XButton();
+    impl Widget for XButton {
         fn ui(self, ui: &mut Ui) -> Response {
             ui.add(
                 Button::new(egui::RichText::new("X").color(Color32::WHITE))

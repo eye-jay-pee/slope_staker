@@ -10,4 +10,4 @@ chrono = "0.4.40"
 fixed = "1"
 strum = "0.26"
 strum_macros = "0.26"
-
+egui-plotter = "0.6.0"

@@ -3,9 +3,9 @@ use strum_macros::EnumIter;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, EnumIter)]
 pub enum BreakPointKind {
-    #[default]
     Centerline,
     Ditch,
+    #[default]
     Unspecified,
     Berm,
     Limit,
