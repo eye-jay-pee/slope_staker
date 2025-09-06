@@ -1,15 +1,29 @@
 pub mod kind;
+pub mod offset;
 pub mod slope;
-#[derive(Debug, Default, Clone, Copy, PartialEq)]
 
+use super::elevation::Elevation;
+use offset::Offset;
+use slope::Slope;
+
+#[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct BreakPoint {
     kind: kind::BreakPointKind,
-    offset: Option<f64>,
-    _slope: Option<f32>,
+    _cut_or_fill_from_slope_stake: Option<f32>,
+
+    slope: Slope,
+    elev: Elevation,
+    offset: Offset,
 }
+impl BreakPoint {}
+
 impl std::fmt::Display for BreakPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} @ {}' O/S from \u{2104}", self.kind, self.offset)
+        write!(
+            f,
+            "{} @ {} L of CL @ {}. Then {} slope until...",
+            self.kind, self.offset, self.elev, self.slope
+        )
     }
 }
 
@@ -25,24 +39,22 @@ pub mod ui {
     }
     impl<'a> Widget for BreakPointEditor<'a> {
         fn ui(self, ui: &mut Ui) -> Response {
+            use super::super::elevation::ui::ElevationEditor;
             use super::kind::ui::BreakPointKindSelector;
+            use super::offset::ui::OffsetEditor;
+            use super::slope::ui::SlopeEditor;
 
-            use eframe::egui::DragValue;
-
-            ui.horizontal(|ui| {
-                ui.add(BreakPointKindSelector::new(&mut self.0.kind));
-                ui.label("@");
-                ui.add(DragValue::new(&mut self.0.offset))
+            ui.vertical(|ui| {
+                ui.horizontal(|ui| {
+                    ui.add(BreakPointKindSelector::new(&mut self.0.kind));
+                    ui.add(SlopeEditor::new(&mut self.0.slope));
+                });
+                ui.horizontal(|ui| {
+                    ui.add(OffsetEditor::new(&mut self.0.offset));
+                    ui.add(ElevationEditor::new(&mut self.0.elev));
+                });
             })
             .response
         }
     }
-}
-
-#[cfg(test)]
-pub mod test {
-    use super::*;
-
-    #[test]
-    fn sample_test() {}
 }

@@ -4,14 +4,14 @@ use strum_macros::EnumIter;
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, EnumIter)]
 pub enum BreakPointKind {
     #[default]
-    _Centerline,
-    _Ditch,
-    _Unspecified,
-    _Berm,
-    _Limit,
-    _Step,
-    _DoesNotDaylight,
-    _Shoulder,
+    Centerline,
+    Ditch,
+    Unspecified,
+    Berm,
+    Limit,
+    Step,
+    DoesNotDaylight,
+    Shoulder,
 }
 impl std::fmt::Display for BreakPointKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -20,14 +20,14 @@ impl std::fmt::Display for BreakPointKind {
             f,
             "{}",
             match self {
-                _Unspecified => "breakpoint",
-                _Ditch => "ditch",
-                _Berm => "berm",
-                _DoesNotDaylight => "does not daylight",
-                _Limit => "limit",
-                _Shoulder => "shoulder",
-                _Centerline => "crown",
-                _Step => "step",
+                Unspecified => "breakpoint",
+                Ditch => "ditch",
+                Berm => "berm",
+                DoesNotDaylight => "does not daylight",
+                Limit => "limit",
+                Shoulder => "shoulder",
+                Centerline => "crown",
+                Step => "step",
             }
         )
     }
@@ -44,18 +44,18 @@ pub mod ui {
         fn check_hotkeys(&mut self, ui: &mut Ui) {
             use eframe::egui::Key;
             const MAPPINGS: &[(Key, BreakPointKind)] = &[
-                (Key::Num1, BreakPointKind::_Ditch),
-                (Key::D, BreakPointKind::_Ditch),
-                (Key::Num2, BreakPointKind::_Unspecified),
-                (Key::P, BreakPointKind::_Unspecified),
-                (Key::Num3, BreakPointKind::_Berm),
-                (Key::B, BreakPointKind::_Berm),
-                (Key::Num4, BreakPointKind::_Limit),
-                (Key::L, BreakPointKind::_Limit),
-                (Key::Num7, BreakPointKind::_Step),
-                (Key::S, BreakPointKind::_Step),
-                (Key::Num9, BreakPointKind::_DoesNotDaylight),
-                (Key::N, BreakPointKind::_DoesNotDaylight),
+                (Key::Num1, BreakPointKind::Ditch),
+                (Key::D, BreakPointKind::Ditch),
+                (Key::Num2, BreakPointKind::Unspecified),
+                (Key::P, BreakPointKind::Unspecified),
+                (Key::Num3, BreakPointKind::Berm),
+                (Key::B, BreakPointKind::Berm),
+                (Key::Num4, BreakPointKind::Limit),
+                (Key::L, BreakPointKind::Limit),
+                (Key::Num7, BreakPointKind::Step),
+                (Key::S, BreakPointKind::Step),
+                (Key::Num9, BreakPointKind::DoesNotDaylight),
+                (Key::N, BreakPointKind::DoesNotDaylight),
             ];
             ui.input(|i| {
                 for (key, variant) in MAPPINGS {
@@ -70,7 +70,7 @@ pub mod ui {
     impl<'a> Widget for BreakPointKindSelector<'a> {
         fn ui(mut self, ui: &mut Ui) -> Response {
             use eframe::egui::ComboBox;
-            let resp = ComboBox::from_id_salt("unique hash seed")
+            let resp = ComboBox::from_id_salt(("bp_kind", self.0 as *const _))
                 .selected_text(self.0.to_string())
                 .show_ui(ui, |ui| {
                     for variant in BreakPointKind::iter() {
