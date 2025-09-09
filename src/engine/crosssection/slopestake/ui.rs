@@ -58,7 +58,7 @@ impl<'a> Widget for CrossSectionEditor<'a> {
     }
 }
 
-struct CrossSectionVisualizer<'a>(&'a SlopeStake);
+struct CrossSectionVisualizer<'a>(#[allow(dead_code)] &'a SlopeStake);
 impl<'a> CrossSectionVisualizer<'a> {
     pub fn new(bp: &'a SlopeStake) -> Self {
         Self(bp)

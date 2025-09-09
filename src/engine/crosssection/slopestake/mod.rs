@@ -19,12 +19,12 @@ impl SlopeStake {
             self.pts.remove(index);
         }
     }
-    pub fn get_pts(&self) -> Option<Vec<(f32, f32)>> {
-        let pts: Vec<(f32, f32)> = Vec::new();
+    pub fn _get_pts(&self) -> Option<Vec<(f32, f32)>> {
+        //let pts: Vec<(f32, f32)> = Vec::new();
 
-        let elev = self.pts[0].elev;
+        //let elev = self.pts[0].elev;
 
-        for bp in self.pts {}
+        //for bp in self.pts {}
 
         todo!()
     }
