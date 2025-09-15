@@ -1,3 +1,6 @@
+pub mod ui;
+pub use ui::StationEditor;
+
 #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Station {
     value: f32,
@@ -40,41 +43,4 @@ impl Station {
     pub fn from_f64(v: f64) -> Self {
         Station { value: v as f32 }
     }
-}
-
-pub mod ui {
-    use super::*;
-    use eframe::egui::{Response, Ui, Widget};
-
-    pub struct StationEditor<'a>(&'a mut Station);
-    impl<'a> Widget for StationEditor<'a> {
-        fn ui(self, ui: &mut Ui) -> Response {
-            use eframe::egui::DragValue;
-
-            let dv = DragValue::from_get_set(|v| self.0.get_set_raw_sta(v))
-                .custom_formatter(|val, _| Station::from_f64(val).to_string());
-
-            ui.horizontal(|ui| {
-                ui.label("Station:");
-                ui.add(dv)
-            })
-            .response
-        }
-    }
-}
-
-#[cfg(test)]
-pub mod test {
-    use super::*;
-
-    #[test]
-    fn test_formatter_zero() {
-        let sta = Station::default();
-        assert_eq!(sta.to_string(), "0+00.00");
-    }
-    //#[test]
-    //fn test_formatter_arbitrary() {
-    //    let sta = Station::new(1234567.89);
-    //    assert_eq!(sta.to_string(), "12345+67.89");
-    //}
 }

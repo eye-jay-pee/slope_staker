@@ -1,12 +1,12 @@
 pub mod utilities;
-use crate::engine::crosssection::breakpoint::{BreakPoint, BreakPointEditor};
+use crate::engine::slopestake::{SlopeStake, SlopeStakeEditor};
 use eframe::egui;
 
 #[derive(Default)]
 pub struct SlopeStakerApp {
     _file: Option<std::path::PathBuf>,
 
-    builder: BreakPoint,
+    ss: SlopeStake,
 }
 
 impl SlopeStakerApp {
@@ -29,7 +29,7 @@ impl eframe::App for SlopeStakerApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.group(|ui| {
-                ui.add(BreakPointEditor::new(&mut self.builder));
+                ui.add(SlopeStakeEditor::new(&mut self.ss));
             });
         });
     }

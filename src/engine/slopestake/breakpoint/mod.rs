@@ -18,6 +18,17 @@ pub struct BreakPoint {
     offset: Offset,
 }
 
+impl BreakPoint {
+    pub fn new(kind: BreakPointKind) -> Self {
+        Self {
+            kind: kind,
+            slope: Slope::default(),
+            elev: Elevation::default(),
+            offset: Offset::default(),
+        }
+    }
+}
+
 impl std::fmt::Display for BreakPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(

@@ -6,8 +6,8 @@ pub struct PlusButton();
 impl Widget for PlusButton {
     fn ui(self, ui: &mut Ui) -> Response {
         ui.add(
-            Button::new(egui::RichText::new("+").color(Color32::BLACK))
-                .fill(Color32::GREEN),
+            Button::new(egui::RichText::new("+").color(Color32::LIGHT_GRAY))
+                .fill(Color32::DARK_GREEN),
         )
     }
 }
@@ -16,7 +16,7 @@ pub struct XButton();
 impl Widget for XButton {
     fn ui(self, ui: &mut Ui) -> Response {
         ui.add(
-            Button::new(egui::RichText::new("X").color(Color32::WHITE))
+            Button::new(egui::RichText::new("X").color(Color32::LIGHT_GRAY))
                 .fill(Color32::RED),
         )
     }
