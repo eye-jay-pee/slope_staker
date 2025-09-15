@@ -9,52 +9,53 @@ impl<'a> CrossSectionEditor<'a> {
 }
 impl<'a> Widget for CrossSectionEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        use super::super::breakpoint::ui::BreakPointEditor;
-        use crate::ui::utilities::{PlusButton, XButton};
+        ui.label("this is commented out rn, twin")
+        // use super::super::breakpoint::ui::BreakPointEditor;
+        // use crate::ui::utilities::{PlusButton, XButton};
 
-        let mut for_slaughter: Option<usize> = None;
-        let mut new_life: Option<usize> = None;
-        let resp = ui
-            .horizontal(|ui| {
-                ui.vertical(|ui| {
-                    for (i, mut bp) in self.0.pts.iter_mut().enumerate() {
-                        ui.group(|ui| {
-                            ui.horizontal(|ui| {
-                                ui.vertical(|ui| {
-                                    ui.add_enabled_ui(i != 0, |ui| {
-                                        if ui.add(XButton()).clicked() {
-                                            for_slaughter = Some(i);
-                                        }
-                                    });
-                                    if ui.add(PlusButton()).clicked() {
-                                        new_life = Some(i);
-                                    }
-                                });
-                                ui.add_space(4.0);
-                                ui.add(BreakPointEditor::new(&mut bp));
-                            });
-                        });
-                    }
-                });
-                ui.with_layout(
-                    eframe::egui::Layout::left_to_right(
-                        eframe::egui::Align::Min,
-                    ),
-                    |ui| {
-                        ui.group(|ui| {
-                            ui.add(CrossSectionVisualizer::new(self.0));
-                        });
-                    },
-                );
-            })
-            .response;
-        if let Some(i) = for_slaughter {
-            self.0.rm_at(i);
-        }
-        if let Some(i) = new_life {
-            self.0.add_at(i);
-        }
-        resp
+        // let mut for_slaughter: Option<usize> = None;
+        // let mut new_life: Option<usize> = None;
+        // let resp = ui
+        //     .horizontal(|ui| {
+        //         ui.vertical(|ui| {
+        //             for (i, mut bp) in self.0.pts.iter_mut().enumerate() {
+        //                 ui.group(|ui| {
+        //                     ui.horizontal(|ui| {
+        //                         ui.vertical(|ui| {
+        //                             ui.add_enabled_ui(i != 0, |ui| {
+        //                                 if ui.add(XButton()).clicked() {
+        //                                     for_slaughter = Some(i);
+        //                                 }
+        //                             });
+        //                             if ui.add(PlusButton()).clicked() {
+        //                                 new_life = Some(i);
+        //                             }
+        //                         });
+        //                         ui.add_space(4.0);
+        //                         ui.add(BreakPointEditor::new(&mut bp));
+        //                     });
+        //                 });
+        //             }
+        //         });
+        //         ui.with_layout(
+        //             eframe::egui::Layout::left_to_right(
+        //                 eframe::egui::Align::Min,
+        //             ),
+        //             |ui| {
+        //                 ui.group(|ui| {
+        //                     ui.add(CrossSectionVisualizer::new(self.0));
+        //                 });
+        //             },
+        //         );
+        //     })
+        //     .response;
+        // if let Some(i) = for_slaughter {
+        //     self.0.rm_at(i);
+        // }
+        // if let Some(i) = new_life {
+        //     self.0.add_at(i);
+        // }
+        // resp
     }
 }
 

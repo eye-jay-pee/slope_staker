@@ -1,15 +1,12 @@
 pub mod utilities;
-use crate::engine::crosssection::{
-    breakpoint::elev::Elevation, slopestake::SlopeStake,
-};
+use crate::engine::crosssection::breakpoint::{BreakPoint, BreakPointEditor};
 use eframe::egui;
 
 #[derive(Default)]
 pub struct SlopeStakerApp {
     _file: Option<std::path::PathBuf>,
 
-    elev: Elevation,
-    ss: SlopeStake,
+    builder: BreakPoint,
 }
 
 impl SlopeStakerApp {
@@ -30,27 +27,9 @@ impl SlopeStakerApp {
 
 impl eframe::App for SlopeStakerApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        use crate::engine::crosssection::breakpoint::elev::ui::ElevationEditor;
-        use crate::engine::crosssection::slopestake::ui::CrossSectionEditor;
-
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.group(|ui| {
-                ui.add(CrossSectionEditor::new(&mut self.ss));
-            });
-            ui.group(|ui| {
-                ui.add(ElevationEditor::new(&mut self.elev));
-            });
-
-            ui.group(|ui| {
-                let text = format!("{}", self.ss);
-                ui.add(
-                    eframe::egui::TextEdit::multiline(
-                        &mut text.to_string().as_str(),
-                    )
-                    .interactive(false) // disables editing
-                    .desired_rows(3) // controls visible height
-                    .desired_width(400.0),
-                );
+                ui.add(BreakPointEditor::new(&mut self.builder));
             });
         });
     }
