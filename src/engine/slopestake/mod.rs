@@ -13,16 +13,25 @@ pub struct SlopeStake {
     points: Vec<BreakPoint>,
 }
 
+impl SlopeStake {
+    fn _is_valid(&self) -> bool {
+        let len = self.points.len();
+        if len >= 2 {
+            if self.points[0]._get_kind() == BreakPointKind::Crown {
+                if self.points[len - 1]._get_kind() == BreakPointKind::Limit {
+                    return true;
+                }
+            }
+        }
+        false
+    }
+}
+
 impl Default for SlopeStake {
     fn default() -> Self {
-        let mut new_ss = Self {
-            points: Vec::new(),
+        Self {
+            points: Vec::from([BreakPoint::crown(), BreakPoint::limit()]),
             _station: Station::default(),
-        };
-        new_ss
-            .points
-            .push(BreakPoint::new(BreakPointKind::Centerline));
-        new_ss.points.push(BreakPoint::new(BreakPointKind::Limit));
-        new_ss
+        }
     }
 }

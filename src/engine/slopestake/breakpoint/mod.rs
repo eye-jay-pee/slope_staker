@@ -27,6 +27,15 @@ impl BreakPoint {
             offset: Offset::default(),
         }
     }
+    pub fn _get_kind(&self) -> BreakPointKind {
+        self.kind
+    }
+    pub fn crown() -> Self {
+        Self::new(BreakPointKind::Crown)
+    }
+    pub fn limit() -> Self {
+        Self::new(BreakPointKind::Limit)
+    }
 }
 
 impl std::fmt::Display for BreakPoint {

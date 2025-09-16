@@ -8,31 +8,20 @@ impl<'a> SlopeStakeEditor<'a> {
     pub fn new(ss: &'a mut SlopeStake) -> Self {
         Self(ss)
     }
-    fn find_removeable(&self) -> Vec<bool> {
-        Vec::from([false, true])
-    }
-    fn find_insertable(&self) -> Vec<bool> {
-        Vec::from([true, false])
-    }
 }
 
 impl<'a> Widget for SlopeStakeEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        let removable = self.find_removeable();
-        let insertable = self.find_insertable();
-
+        let n = self.0.points.len();
         ui.vertical(|ui| {
-            for (i, mut bp) in self.0.points.iter_mut().enumerate() {
+            for i in 0..n {
                 ui.horizontal(|ui| {
-                    if ui
-                        .add_enabled(removable[i], XButton::default())
-                        .clicked()
-                    {
+                    if ui.add_enabled(i != 0, XButton::default()).clicked() {
                         println!("remove {}", i);
                     }
-                    ui.add(BreakPointEditor::new(&mut bp));
+                    ui.add(BreakPointEditor::new(&mut self.0.points[i]));
                     if ui
-                        .add_enabled(insertable[i], PlusButton::default())
+                        .add_enabled(i != n - 1, PlusButton::default())
                         .clicked()
                     {
                         println!("add after {}", i);

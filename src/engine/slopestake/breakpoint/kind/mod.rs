@@ -6,7 +6,7 @@ use strum_macros::EnumIter;
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, EnumIter)]
 pub enum BreakPointKind {
-    Centerline,
+    Crown,
     Ditch,
     #[default]
     Unspecified,
@@ -26,7 +26,7 @@ impl std::fmt::Display for BreakPointKind {
             DoesNotDaylight => "does not daylight",
             Limit => "limit",
             Shoulder => "shoulder",
-            Centerline => "crown",
+            Crown => "crown",
             Step => "step",
         })
     }

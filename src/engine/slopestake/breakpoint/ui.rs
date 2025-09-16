@@ -9,8 +9,14 @@ impl<'a> BreakPointEditor<'a> {
 }
 impl<'a> Widget for BreakPointEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
+        let is_crown = self.0.kind == BreakPointKind::Crown;
+        let is_limit = self.0.kind == BreakPointKind::Limit;
+
         ui.horizontal_wrapped(|ui| {
-            ui.add(BreakPointKindSelector::new(&mut self.0.kind));
+            ui.add_enabled(
+                !is_crown && !is_limit,
+                BreakPointKindSelector::new(&mut self.0.kind),
+            );
             ui.add(ElevationEditor::new(&mut self.0.elev));
             ui.add(OffsetEditor::new(&mut self.0.offset));
             ui.add(SlopeEditor::new(&mut self.0.slope));

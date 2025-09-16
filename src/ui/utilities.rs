@@ -16,8 +16,8 @@ pub struct XButton();
 impl Widget for XButton {
     fn ui(self, ui: &mut Ui) -> Response {
         ui.add(
-            Button::new(egui::RichText::new("X").color(Color32::LIGHT_GRAY))
-                .fill(Color32::RED),
+            Button::new(egui::RichText::new("x").color(Color32::LIGHT_GRAY))
+                .fill(Color32::DARK_RED),
         )
     }
 }
