@@ -5,7 +5,6 @@ use eframe::egui;
 #[derive(Default)]
 pub struct SlopeStakerApp {
     _file: Option<std::path::PathBuf>,
-
     ss: SlopeStake,
 }
 

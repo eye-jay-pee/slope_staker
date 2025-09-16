@@ -2,7 +2,7 @@ use super::*;
 use eframe::egui::{Response, Ui, Widget};
 
 impl<'a> StationEditor<'a> {
-    pub fn new(sta: &'a mut Station) -> Self {
+    pub fn _new(sta: &'a mut Station) -> Self {
         Self(sta)
     }
 }
