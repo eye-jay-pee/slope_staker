@@ -1,5 +1,5 @@
 pub mod breakpoint;
-pub use breakpoint::{BreakPoint, BreakPointEditor, BreakPointKind};
+pub use breakpoint::{BreakPoint, BreakPointEditor};
 pub mod station;
 #[allow(unused_imports)]
 pub use station::{Station, StationEditor};
@@ -14,24 +14,27 @@ pub struct SlopeStake {
 }
 
 impl SlopeStake {
-    fn _is_valid(&self) -> bool {
-        let len = self.points.len();
-        if len >= 2 {
-            if self.points[0]._get_kind() == BreakPointKind::Crown {
-                if self.points[len - 1]._get_kind() == BreakPointKind::Limit {
-                    return true;
-                }
-            }
+    pub fn remove_point_at(&mut self, index: usize) {
+        self.points.remove(index);
+    }
+    pub fn add_point_at(&mut self, point: BreakPoint, index: usize) {
+        if (1..self.points.len()).contains(&index) {
+            self.points.insert(index, point);
+        } else {
+            println!("invalid insertion index: {index}");
         }
-        false
     }
 }
 
 impl Default for SlopeStake {
     fn default() -> Self {
-        Self {
-            points: Vec::from([BreakPoint::crown(), BreakPoint::limit()]),
+        let mut new_one = Self {
+            points: Vec::new(),
             _station: Station::default(),
-        }
+        };
+        new_one.points.push(BreakPoint::crown());
+        new_one.points.push(BreakPoint::limit());
+
+        new_one
     }
 }

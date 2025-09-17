@@ -12,23 +12,39 @@ impl<'a> SlopeStakeEditor<'a> {
 
 impl<'a> Widget for SlopeStakeEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
+        let mut remove_me = None;
+        let mut insert_at = None;
+
         let n = self.0.points.len();
-        ui.vertical(|ui| {
-            for i in 0..n {
-                ui.horizontal(|ui| {
-                    if ui.add_enabled(i != 0, XButton::default()).clicked() {
-                        println!("remove {}", i);
-                    }
-                    ui.add(BreakPointEditor::new(&mut self.0.points[i]));
-                    if ui
-                        .add_enabled(i != n - 1, PlusButton::default())
-                        .clicked()
-                    {
-                        println!("add after {}", i);
-                    }
-                });
-            }
-        })
-        .response
+        let resp = ui
+            .vertical(|ui| {
+                for i in 0..n {
+                    ui.horizontal(|ui| {
+                        if ui
+                            .add_enabled((1..n - 1).contains(&i), XButton())
+                            .clicked()
+                        {
+                            remove_me = Some(i);
+                        }
+                        ui.add(BreakPointEditor::new(&mut self.0.points[i]));
+                        if ui
+                            .add_enabled((0..n - 1).contains(&i), PlusButton())
+                            .clicked()
+                        {
+                            insert_at = Some(i + 1);
+                        }
+                    });
+                }
+            })
+            .response;
+
+        if let Some(i) = remove_me {
+            self.0.remove_point_at(i);
+        }
+        if let Some(i) = insert_at {
+            self.0.add_point_at(BreakPoint::default(), i);
+        }
+
+        resp
     }
 }
