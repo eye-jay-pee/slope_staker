@@ -1,5 +1,7 @@
 pub mod utilities;
-use crate::engine::slopestake::{SlopeStake, SlopeStakeEditor};
+use crate::engine::slopestake::{
+    SlopeStake, SlopeStakeEditor, SlopeStakeViewer,
+};
 use eframe::egui;
 
 #[derive(Default)]
@@ -30,6 +32,7 @@ impl eframe::App for SlopeStakerApp {
             ui.group(|ui| {
                 ui.add(SlopeStakeEditor::new(&mut self.ss));
             });
+            ui.add(SlopeStakeViewer::new(&self.ss));
         });
     }
 }

@@ -15,7 +15,7 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
         let mut remove_me = None;
         let mut insert_at = None;
 
-        let n = self.0.points.len();
+        let n = self.0.pts.len();
         let resp = ui
             .vertical(|ui| {
                 for i in 0..n {
@@ -26,7 +26,7 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
                         {
                             remove_me = Some(i);
                         }
-                        ui.add(BreakPointEditor::new(&mut self.0.points[i]));
+                        ui.add(BreakPointEditor::new(&mut self.0.pts[i]));
                         if ui
                             .add_enabled((0..n - 1).contains(&i), PlusButton())
                             .clicked()
@@ -46,5 +46,20 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
         }
 
         resp
+    }
+}
+
+pub struct SlopeStakeViewer<'a>(&'a SlopeStake);
+impl<'a> SlopeStakeViewer<'a> {
+    pub fn new(ss: &'a SlopeStake) -> Self {
+        Self(ss)
+    }
+}
+impl<'a> Widget for SlopeStakeViewer<'a> {
+    fn ui(self, ui: &mut Ui) -> Response {
+        ui.group(|ui| {
+            ui.label(format!("plot: {}", self.0.to_string()));
+        })
+        .response
     }
 }
