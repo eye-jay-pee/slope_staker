@@ -1,4 +1,5 @@
 use super::SlopeStake;
+use crate::ui::utilities::AutoPlot;
 use eframe::egui::{vec2, Response, Ui, Vec2, Widget};
 
 pub struct SlopeStakeViewer<'a> {
@@ -16,12 +17,9 @@ impl<'a> SlopeStakeViewer<'a> {
 
 impl<'a> Widget for SlopeStakeViewer<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        use crate::ui::utilities::Plot;
-        use eframe::egui::Vec2;
-
         let points: Vec<Vec2> =
             self.data.pts.iter().map(|pt| Vec2::from(*pt)).collect();
 
-        ui.add(Plot::new(points, self.desired_size))
+        ui.add(AutoPlot::new(points, self.desired_size))
     }
 }
