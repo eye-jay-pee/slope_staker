@@ -13,9 +13,9 @@ pub use ui::BreakPointEditor;
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct BreakPoint {
     kind: BreakPointKind,
-    slope: Slope,
-    elev: Elevation,
-    offset: Offset,
+    pub slope: Slope,
+    pub elev: Elevation,
+    pub offset: Offset,
 }
 
 impl BreakPoint {
@@ -27,6 +27,7 @@ impl BreakPoint {
             offset: Offset::default(),
         }
     }
+
     pub fn _get_kind(&self) -> BreakPointKind {
         self.kind
     }

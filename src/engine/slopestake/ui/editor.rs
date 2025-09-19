@@ -1,15 +1,13 @@
-use super::*;
+use super::{BreakPoint, BreakPointEditor, SlopeStake};
 use crate::ui::utilities::{PlusButton, XButton};
 use eframe::egui::{Response, Ui, Widget};
 
 pub struct SlopeStakeEditor<'a>(&'a mut SlopeStake);
-
 impl<'a> SlopeStakeEditor<'a> {
     pub fn new(ss: &'a mut SlopeStake) -> Self {
         Self(ss)
     }
 }
-
 impl<'a> Widget for SlopeStakeEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         let mut remove_me = None;
@@ -46,20 +44,5 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
         }
 
         resp
-    }
-}
-
-pub struct SlopeStakeViewer<'a>(&'a SlopeStake);
-impl<'a> SlopeStakeViewer<'a> {
-    pub fn new(ss: &'a SlopeStake) -> Self {
-        Self(ss)
-    }
-}
-impl<'a> Widget for SlopeStakeViewer<'a> {
-    fn ui(self, ui: &mut Ui) -> Response {
-        ui.group(|ui| {
-            ui.label(format!("plot: {}", self.0.to_string()));
-        })
-        .response
     }
 }
