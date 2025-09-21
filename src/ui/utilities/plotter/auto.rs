@@ -3,14 +3,14 @@ use eframe::egui::{Response, Ui, Vec2, Widget};
 
 pub struct AutoPlot {
     _pts: Vec<Vec2>,
-    _area: Vec2,
+    area: Vec2,
     _margin: Vec2,
 }
 impl AutoPlot {
     pub fn new(pts: Vec<Vec2>, area: Vec2) -> Self {
         Self {
             _pts: pts,
-            _area: area,
+            area: area,
             _margin: Vec2::default(),
         }
     }
@@ -58,6 +58,6 @@ impl Widget for AutoPlot {
         //     Stroke::new(1.5, Color32::LIGHT_GREEN),
         // ));
 
-        ui.add(SimplePlot::default())
+        ui.add(SimplePlot::default().area(self.area))
     }
 }

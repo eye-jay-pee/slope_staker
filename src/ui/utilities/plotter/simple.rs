@@ -1,24 +1,25 @@
 use super::GridLines;
-use eframe::egui::{vec2, Color32, Response, Ui, Vec2, Widget};
+use eframe::egui::{vec2, Color32, Response, Sense, Stroke, Ui, Vec2, Widget};
 
+#[derive(Debug, Default, Clone)]
 pub struct SimplePlot {
     _pts: Vec<Vec2>,
     area: Vec2,
-    trim_min: Vec2,
-    trim_max: Vec2,
+    _trim_min: Vec2,
+    _trim_max: Vec2,
     _scale_factor: Vec2,
 }
 impl SimplePlot {
-    pub fn _area(mut self, new: Vec2) -> Self {
+    pub fn area(mut self, new: Vec2) -> Self {
         self.area = new;
         self
     }
     pub fn _trim_min(mut self, new: Vec2) -> Self {
-        self.trim_min = new;
+        self._trim_min = new;
         self
     }
     pub fn _trim_max(mut self, new: Vec2) -> Self {
-        self.trim_max = new;
+        self._trim_max = new;
         self
     }
     pub fn _scale_factor(mut self, new: Vec2) -> Self {
@@ -30,31 +31,21 @@ impl SimplePlot {
         self
     }
 }
-impl Default for SimplePlot {
-    fn default() -> Self {
-        Self {
-            _pts: Vec::new(),
-            area: vec2(64.0, 64.0),
-            trim_min: vec2(0.0, 0.0),
-            trim_max: vec2(16.0, 16.0),
-            _scale_factor: vec2(1.0, 1.0),
-        }
-    }
-}
 
 impl Widget for SimplePlot {
     fn ui(self, ui: &mut Ui) -> Response {
-        ui.add(
-            GridLines::default()
-                .area(self.area)
-                .range(self.trim_min, self.trim_max)
-                .back(Color32::BLACK)
-                .freq(vec2(5.0, 5.0))
-                .fore(Color32::WHITE),
-        )
+        let (response, painter) =
+            ui.allocate_painter(self.area, Sense::hover());
+        let rect = response.rect;
 
-        // // Fill background
-        // painter.rect_filled(rect, 0.0, Color32::DARK_GRAY);
+        // Fill background
+        painter.rect_filled(rect, 0.0, Color32::DARK_GRAY);
+
+        GridLines::new(&painter, rect)
+            .stroke(Stroke::new(0.5, Color32::WHITE))
+            .freq(vec2(5.0, 5.0))
+            .draw();
+        response
 
         // if !self.pts.is_empty() {
         //     // Find bounding box of points
