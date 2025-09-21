@@ -1,6 +1,8 @@
 /target
 tags
 
+*.DS_store
+
 *.swp
 *.swo
 *.swm

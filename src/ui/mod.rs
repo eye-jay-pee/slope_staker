@@ -30,9 +30,11 @@ impl eframe::App for SlopeStakerApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.group(|ui| {
+                ui.add(SlopeStakeViewer::new(&self.ss));
+            });
+            ui.group(|ui| {
                 ui.add(SlopeStakeEditor::new(&mut self.ss));
             });
-            ui.add(SlopeStakeViewer::new(&self.ss));
         });
     }
 }
