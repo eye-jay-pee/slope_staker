@@ -1,11 +1,14 @@
 use crate::utilities::DisplayExt;
-use eframe::egui::{Color32, Response, Ui, Widget};
+use eframe::egui::{
+    color_picker::{color_edit_button_srgba, Alpha},
+    Color32, Response, Ui, Widget,
+};
 use std::fmt::Formatter;
 
 pub struct Color32Editor<'a>(&'a mut Color32);
 impl<'a> Widget for Color32Editor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        ui.label("here will go controls for a color picker")
+        color_edit_button_srgba(ui, self.0, Alpha::Opaque)
     }
 }
 

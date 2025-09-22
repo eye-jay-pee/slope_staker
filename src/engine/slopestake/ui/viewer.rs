@@ -10,7 +10,7 @@ impl<'a> SlopeStakeViewer<'a> {
     pub fn new(ss: &'a SlopeStake) -> Self {
         Self {
             data: ss,
-            desired_size: vec2(420.0, 240.0),
+            desired_size: vec2(410.0, 340.0),
         }
     }
 }

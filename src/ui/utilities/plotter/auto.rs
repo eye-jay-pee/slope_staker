@@ -18,6 +18,11 @@ impl AutoPlot {
 
 impl Widget for AutoPlot {
     fn ui(self, ui: &mut Ui) -> Response {
+        ui.add(SimplePlot::default().area(self.area))
+
+        // all beyond heree commemnted out for now. this is just a wrapper of
+        // simpleplot until simple plot is done
+
         // // Find bounding box of points
         // let (min, max) = self.pts.iter().fold(
         //     (self.pts[0], self.pts[0]),
@@ -57,7 +62,5 @@ impl Widget for AutoPlot {
         //     screen_pts.drain(..).collect(),
         //     Stroke::new(1.5, Color32::LIGHT_GREEN),
         // ));
-
-        ui.add(SimplePlot::default().area(self.area))
     }
 }
