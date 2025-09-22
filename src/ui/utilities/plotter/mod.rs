@@ -5,4 +5,4 @@ pub mod auto;
 pub use auto::AutoPlot;
 
 mod grid;
-use grid::GridLines;
+use grid::{GridLines, GridLinesState};

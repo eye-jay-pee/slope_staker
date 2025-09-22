@@ -3,3 +3,4 @@ fn main() -> eframe::Result {
 }
 mod engine;
 mod ui;
+mod utilities;

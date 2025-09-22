@@ -1,4 +1,4 @@
-use super::GridLines;
+use super::{GridLines, GridLinesState};
 use eframe::egui::{vec2, Color32, Response, Sense, Stroke, Ui, Vec2, Widget};
 
 #[derive(Debug, Default, Clone)]
@@ -37,14 +37,14 @@ impl Widget for SimplePlot {
         let (response, painter) =
             ui.allocate_painter(self.area, Sense::hover());
         let rect = response.rect;
+        painter.rect_filled(rect, 0.0, Color32::BLACK);
 
-        // Fill background
-        painter.rect_filled(rect, 0.0, Color32::DARK_GRAY);
+        let mut state = GridLinesState {
+            stroke: Stroke::new(0.16, Color32::GREEN),
+            freq: vec2(16.0, 16.0),
+        };
+        GridLines::new(&painter, rect, &mut state).draw();
 
-        GridLines::new(&painter, rect)
-            .stroke(Stroke::new(0.5, Color32::WHITE))
-            .freq(vec2(5.0, 5.0))
-            .draw();
         response
 
         // if !self.pts.is_empty() {
