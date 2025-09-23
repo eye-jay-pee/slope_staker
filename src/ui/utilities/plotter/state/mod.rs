@@ -1,7 +1,6 @@
 pub mod ui;
 //pub use ui::PlotterStateEditor;
 
-use super::GridLinesState;
 use std::fmt::{Display, Formatter, Result};
 
 #[derive(Debug, Default, Clone)]
