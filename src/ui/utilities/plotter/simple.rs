@@ -1,5 +1,5 @@
-use super::{GridLinesStyle, PainterExt};
-use eframe::egui::{vec2, Color32, Response, Sense, Ui, Vec2, Widget};
+use super::{GridLinesStyle, GridLinesStyleEditor, PainterCanDrawGridLines};
+use eframe::egui::{Color32, Response, Sense, Ui, Vec2, Widget};
 
 #[derive(Debug, Default, Clone)]
 pub struct SimplePlot {
@@ -31,60 +31,19 @@ impl SimplePlot {
         self
     }
 }
-
 impl Widget for SimplePlot {
     fn ui(self, ui: &mut Ui) -> Response {
-        let (response, painter) =
-            ui.allocate_painter(self.area, Sense::hover());
-        let rect = response.rect;
+        ui.vertical(|ui| {
+            let (response, painter) =
+                ui.allocate_painter(self.area, Sense::empty());
+            let rect = response.rect;
 
-        painter.rect_filled(rect, 0.0, Color32::BLACK);
+            painter.rect_filled(rect, 0.0, Color32::BLACK);
 
-        painter
-            .grid_lines(rect, GridLinesStyle::default().freq(vec2(16.0, 16.0)));
-
-        response
-
-        // if !self.pts.is_empty() {
-        //     // Find bounding box of points
-        //     let (min, max) = self.pts.iter().fold(
-        //         (self.pts[0], self.pts[0]),
-        //         |(min, max), v| {
-        //             (
-        //                 Vec2::new(min.x.min(v.x), min.y.min(v.y)),
-        //                 Vec2::new(max.x.max(v.x), max.y.max(v.y)),
-        //             )
-        //         },
-        //     );
-
-        //     let size = max - min;
-        //     let scale_x = rect.width() / size.x.max(1e-6);
-        //     let scale_y = rect.height() / size.y.max(1e-6);
-        //     let scale = scale_x.min(scale_y); // uniform scaling
-
-        //     // map Vec2 -> Pos2 in screen coords
-        //     let to_screen = |pt: Vec2| -> Pos2 {
-        //         Pos2::new(
-        //             rect.left() + (pt.x - min.x) * scale,
-        //             rect.bottom() - (pt.y - min.y) * scale,
-        //         )
-        //     };
-
-        //     let mut screen_pts: Vec<Pos2> =
-        //         self.pts.into_iter().map(to_screen).collect();
-
-        //     // scatter dots (optional)
-        //     for &p in &screen_pts {
-        //         painter.circle_filled(p, 2.0, Color32::WHITE);
-        //     }
-
-        //     // connecting polyline
-        //     painter.add(Shape::line(
-        //         screen_pts.drain(..).collect(),
-        //         Stroke::new(1.5, Color32::LIGHT_GREEN),
-        //     ));
-        // }
-
-        // response
+            let mut gls = GridLinesStyle::default().set_freq(25.0, 25.0);
+            ui.add(GridLinesStyleEditor::new(&mut gls));
+            painter.grid_lines(rect, gls);
+        })
+        .response
     }
 }

@@ -1,4 +1,3 @@
-use crate::utilities::DisplayExt;
 use eframe::egui::{Response, Slider, Stroke, Ui, Widget};
 
 pub struct StrokeEditor<'a>(&'a mut Stroke);
@@ -9,13 +8,15 @@ impl<'a> Widget for StrokeEditor<'a> {
     }
 }
 
+use crate::foreign::DisplayExt;
+use std::fmt::{Formatter, Result};
 impl DisplayExt for Stroke {
-    fn fmt_ext(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt_ext(&self, f: &mut Formatter<'_>) -> Result {
         write!(
             f,
             "width:{} color:{}",
             self.width,
-            self.color.to_display_string()
+            self.color.to_display_string(),
         )
     }
 }

@@ -4,8 +4,5 @@ pub use simple::SimplePlot;
 pub mod auto;
 pub use auto::AutoPlot;
 
-//pub mod state;
-//pub use state::PlotterState;
-
-mod grid;
-use grid::{GridLinesStyle, PainterExt};
+pub mod grid;
+pub use grid::{GridLinesStyle, GridLinesStyleEditor, PainterCanDrawGridLines};
