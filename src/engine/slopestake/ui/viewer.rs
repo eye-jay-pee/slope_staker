@@ -11,9 +11,10 @@ impl<'a> SlopeStakeViewer<'a> {
 
 impl<'a> Widget for SlopeStakeViewer<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        let _points: Vec<Vec2> =
-            self.0.pts.iter().map(|pt| Vec2::from(*pt)).collect();
-
-        ui.add(Plot::default())
+        let mut plot = Plot::default();
+        for pt in &self.0.pts {
+            plot.add_point(Vec2::from(pt));
+        }
+        ui.add(plot)
     }
 }

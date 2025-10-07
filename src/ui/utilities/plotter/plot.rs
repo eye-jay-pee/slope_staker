@@ -12,21 +12,14 @@ pub struct Plot {
     grid_freq: Vec2,
     grid_stroke: Stroke,
 
+    prescale_points: Vec<Vec2>,
     point_stroke: Stroke,
+    _line_stroke: Stroke,
 }
 #[allow(dead_code)]
 impl Plot {
-    fn add_pt(self, painter: Painter, rect: Rect, prescaled: Vec2) -> Self {
-        let range_size = self.range_max - self.range_min;
-        let normalized = (prescaled - self.range_min) / range_size;
-        let absolute = rect.min + normalized * range_size;
-
-        painter.circle_filled(
-            absolute,
-            self.point_stroke.width / 2.0,
-            self.point_stroke.color,
-        );
-        self
+    pub fn add_point(&mut self, prescaled: Vec2) {
+        self.prescale_points.push(prescaled);
     }
     pub fn background(mut self, bg: Color32) -> Self {
         self.background = bg;
@@ -52,14 +45,16 @@ impl Default for Plot {
     fn default() -> Self {
         Self {
             desired_size: Vec2::new(400.0, 400.0),
+            range_min: Vec2::new(-200.0, -200.0),
+            range_max: Vec2::new(200.0, 200.0),
 
             background: Color32::BLACK,
             grid_freq: Vec2::new(10.0, 10.0),
             grid_stroke: Stroke::new(1.0 / 16.0, Color32::WHITE),
 
+            prescale_points: Vec::new(),
             point_stroke: Stroke::new(2.0, Color32::GREEN),
-            range_min: Vec2::new(-200.0, -200.0),
-            range_max: Vec2::new(200.0, 200.0),
+            _line_stroke: Stroke::new(1.0, Color32::GREEN),
         }
     }
 }
@@ -69,6 +64,14 @@ impl Widget for Plot {
 
         painter.rect_filled(rect, 0.0, self.background);
         painter.grid_lines(rect, self.grid_stroke, self.grid_freq);
+
+        painter.line(
+            self.prescale_points
+                .into_iter()
+                .map(|v: Vec2| rect.center() + v)
+                .collect(),
+            self._line_stroke,
+        );
 
         response
     }
