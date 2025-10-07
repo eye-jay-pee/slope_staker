@@ -23,8 +23,10 @@ impl<'a> Widget for SlopeStakeViewer<'a> {
         painter.rect_filled(rect, 0.0, Color32::BLACK);
         painter.grid_lines(rect, gridlines_stroke, gridlines_freq);
 
-        for pt in &self.0.pts {
-            painter.break_point(&pt, rect, stroke, 30.3);
+        for window in self.0.pts.windows(2) {
+            let (cur, next) = (&window[0], &window[1]);
+            let offset_to_next = f32::from(next.offset) - f32::from(cur.offset);
+            painter.break_point(&cur, rect, stroke, offset_to_next);
         }
 
         response
