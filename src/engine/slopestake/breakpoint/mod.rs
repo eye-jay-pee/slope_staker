@@ -8,7 +8,7 @@ pub mod slope;
 pub use slope::{Slope, SlopeEditor};
 
 pub mod ui;
-pub use ui::BreakPointEditor;
+pub use ui::{BreakPointEditor, CanPaintBreakPoint};
 
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct BreakPoint {

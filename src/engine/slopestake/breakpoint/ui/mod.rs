@@ -7,6 +7,6 @@ pub mod editor;
 pub use editor::BreakPointEditor;
 
 pub mod painter;
-//pub use painter::CanPaintBreakPoint;
+pub use painter::CanPaintBreakPoint;
 
 pub mod traits;

@@ -1,5 +1,5 @@
 pub mod breakpoint;
-pub use breakpoint::{BreakPoint, BreakPointEditor};
+pub use breakpoint::{BreakPoint, BreakPointEditor, CanPaintBreakPoint};
 pub mod station;
 #[allow(unused_imports)]
 pub use station::{Station, StationEditor};
