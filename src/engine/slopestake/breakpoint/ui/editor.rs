@@ -1,5 +1,8 @@
-use super::*;
-use eframe::egui::{Response, Ui, Vec2, Widget};
+pub use super::{BreakPoint, BreakPointKind};
+pub use super::{
+    BreakPointKindSelector, ElevationEditor, OffsetEditor, SlopeEditor,
+};
+use eframe::egui::{Response, Ui, Widget};
 
 pub struct BreakPointEditor<'a>(&'a mut BreakPoint);
 impl<'a> BreakPointEditor<'a> {
@@ -22,16 +25,5 @@ impl<'a> Widget for BreakPointEditor<'a> {
             ui.add(SlopeEditor::new(&mut self.0.slope));
         })
         .response
-    }
-}
-
-impl From<BreakPoint> for Vec2 {
-    fn from(bp: BreakPoint) -> Self {
-        Vec2::new(f32::from(bp.offset), -f32::from(bp.elev))
-    }
-}
-impl From<&BreakPoint> for Vec2 {
-    fn from(bp: &BreakPoint) -> Self {
-        Vec2::new(f32::from(bp.offset), -f32::from(bp.elev))
     }
 }
