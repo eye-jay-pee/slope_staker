@@ -1,4 +1,4 @@
-use super::BreakPoint;
+use super::{BreakPoint, BreakPointKind};
 use eframe::egui::{Painter, Rect, Stroke, Vec2};
 
 pub trait CanPaintBreakPoint {
@@ -22,7 +22,9 @@ impl CanPaintBreakPoint for Painter {
         let a = rect.center() + Vec2::from(breakpoint);
         let b = a + Vec2::new(1.0, 2.0) * run;
 
-        self.line_segment([a, b], stroke);
+        if breakpoint.kind != BreakPointKind::Limit {
+            self.line_segment([a, b], stroke); //impl this as slope/ui/painter
+        }
         self.circle_filled(a, stroke.width, stroke.color);
     }
 }
