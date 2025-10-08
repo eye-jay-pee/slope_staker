@@ -1,5 +1,6 @@
 use super::*;
 use eframe::egui::{Response, Ui, Widget};
+use strum::IntoEnumIterator;
 
 pub struct BreakPointKindSelector<'a>(&'a mut BreakPointKind);
 impl<'a> BreakPointKindSelector<'a> {

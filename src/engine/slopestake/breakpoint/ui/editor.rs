@@ -12,12 +12,11 @@ impl<'a> BreakPointEditor<'a> {
 }
 impl<'a> Widget for BreakPointEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
-        let is_crown = self.0.kind == BreakPointKind::Crown;
-        let is_limit = self.0.kind == BreakPointKind::Limit;
+        use BreakPointKind::*;
 
         ui.horizontal_wrapped(|ui| {
             ui.add_enabled(
-                !is_crown && !is_limit,
+                self.0.kind != Crown && self.0.kind != Limit,
                 BreakPointKindSelector::new(&mut self.0.kind),
             );
             ui.add(ElevationEditor::new(&mut self.0.elev));
