@@ -1,8 +1,6 @@
 pub mod utilities;
 
-use crate::engine::slopestake::{
-    SlopeStake, SlopeStakeEditor, SlopeStakeViewer,
-};
+use crate::slopestake::{SlopeStake, SlopeStakeEditor, SlopeStakeViewer};
 use eframe::egui;
 
 #[derive(Default)]
