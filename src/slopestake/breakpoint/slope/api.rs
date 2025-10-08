@@ -22,6 +22,16 @@ impl From<Slope> for f64 {
         slp.0
     }
 }
+impl From<f32> for Slope {
+    fn from(v: f32) -> Self {
+        Self::from(v as f64)
+    }
+}
+impl From<Slope> for f32 {
+    fn from(slp: Slope) -> f32 {
+        f64::from(slp) as f32
+    }
+}
 impl std::fmt::Display for Slope {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if self.0.is_nan() {
