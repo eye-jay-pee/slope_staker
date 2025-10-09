@@ -36,7 +36,7 @@ mod display {
     use std::fmt::{Display, Formatter, Result};
     impl Display for Slope {
         fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-            if self.0 > 0.01 {
+            if self.0.abs() > 0.01 {
                 write!(f, "{:1.01}:1", 1.0 / self.0)
             } else {
                 write!(f, "{:1.03}", self.0)
