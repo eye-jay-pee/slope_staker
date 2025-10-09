@@ -2,13 +2,13 @@
 pub struct Slope(f64);
 
 impl Slope {
-    pub const VERTICAL_WALL: Slope = Slope(0.0);
-    pub const LEVEL_GROUND: Slope = Slope(f64::INFINITY);
+    pub const VERTICAL_WALL: Slope = Slope(f64::INFINITY);
+    pub const LEVEL_GROUND: Slope = Slope(0.0);
 }
 
 impl Default for Slope {
     fn default() -> Self {
-        Self(f64::INFINITY)
+        Self::LEVEL_GROUND
     }
 }
 impl From<f64> for Slope {
@@ -36,10 +36,10 @@ mod display {
     use std::fmt::{Display, Formatter, Result};
     impl Display for Slope {
         fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-            if !self.0.is_nan() {
-                write!(f, "{:1.02}:1", self.0)
+            if self.0 > 0.01 {
+                write!(f, "{:1.01}:1", 1.0 / self.0)
             } else {
-                write!(f, "None")
+                write!(f, "{:1.03}", self.0)
             }
         }
     }

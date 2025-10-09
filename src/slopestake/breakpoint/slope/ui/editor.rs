@@ -14,14 +14,14 @@ impl<'a> Widget for SlopeEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         use eframe::egui::DragValue;
 
+        let dv = DragValue::new(self.data)
+            .update_while_editing(true)
+            .custom_parser(|s| Self::parse(s))
+            .custom_formatter(|val, rng| Self::formatter(val, rng));
+
         ui.horizontal(|ui| {
             ui.label("Slope:");
-            ui.add(
-                DragValue::new(self.data)
-                    .update_while_editing(true)
-                    .custom_parser(|s| Self::parse(s))
-                    .custom_formatter(|v, r| Self::formatter(v, r)),
-            );
+            ui.add(dv);
         })
         .response
     }
@@ -48,6 +48,6 @@ impl<'a> SlopeEditor<'a> {
     }
 
     fn formatter(value: f64, _range: RangeInclusive<usize>) -> String {
-        format!("{}:1", value)
+        Slope::from(value).to_string()
     }
 }
