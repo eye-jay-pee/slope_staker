@@ -1,5 +1,6 @@
 use super::Slope;
 use eframe::egui::{Response, Ui, Widget};
+use regex::Regex;
 
 pub struct SlopeEditor<'a> {
     data: &'a mut Slope,
@@ -17,7 +18,7 @@ impl<'a> Widget for SlopeEditor<'a> {
         let dv = DragValue::new(self.data)
             .update_while_editing(true)
             .custom_parser(|s| Self::parse(s))
-            .custom_formatter(|val, rng| Self::formatter(val, rng));
+            .custom_formatter(|val, _rng| Slope::from(val).to_string());
 
         ui.horizontal(|ui| {
             ui.label("Slope:");
@@ -26,9 +27,6 @@ impl<'a> Widget for SlopeEditor<'a> {
         .response
     }
 }
-
-use core::ops::RangeInclusive;
-use regex::Regex;
 
 impl<'a> SlopeEditor<'a> {
     fn parse(input: &str) -> Option<f64> {
@@ -45,9 +43,5 @@ impl<'a> SlopeEditor<'a> {
         };
 
         Some(run / rise)
-    }
-
-    fn formatter(value: f64, _range: RangeInclusive<usize>) -> String {
-        Slope::from(value).to_string()
     }
 }

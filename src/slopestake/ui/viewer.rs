@@ -28,6 +28,9 @@ impl<'a> Widget for SlopeStakeViewer<'a> {
             let offset_to_next = f32::from(next.offset) - f32::from(cur.offset);
             painter.break_point(&cur, rect, stroke, offset_to_next);
         }
+        if let Some(last) = self.0.pts.last() {
+            painter.break_point(last, rect, stroke, 0.0);
+        }
 
         response
     }
