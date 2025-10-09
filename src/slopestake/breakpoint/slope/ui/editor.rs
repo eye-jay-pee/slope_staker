@@ -18,13 +18,36 @@ impl<'a> Widget for SlopeEditor<'a> {
             ui.label("Slope:");
             ui.add(
                 DragValue::new(self.data)
-                    .custom_formatter(|val, _| Slope::from(val).to_string())
-                    .custom_parser(|s| {
-                        let cleaned = s.trim().trim_end_matches(":1");
-                        cleaned.parse::<f64>().ok()
-                    }),
-            )
+                    .update_while_editing(true)
+                    .custom_parser(|s| Self::parse(s))
+                    .custom_formatter(|v, r| Self::formatter(v, r)),
+            );
         })
         .response
+    }
+}
+
+use core::ops::RangeInclusive;
+use regex::Regex;
+
+impl<'a> SlopeEditor<'a> {
+    fn parse(input: &str) -> Option<f64> {
+        let caps =
+            Regex::new(r"^\D*?(-?\d+(?:\.\d+)?)(?::\D*?(-?\d+(?:\.\d+)?))?")
+                .unwrap()
+                .captures(input)?;
+
+        let run: f64 = caps.get(1)?.as_str().parse().ok()?;
+        let rise = if let Some(val) = caps.get(2) {
+            val.as_str().parse().ok()?
+        } else {
+            1.0
+        };
+
+        Some(run / rise)
+    }
+
+    fn formatter(value: f64, _range: RangeInclusive<usize>) -> String {
+        format!("{}:1", value)
     }
 }

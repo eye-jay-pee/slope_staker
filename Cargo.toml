@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+regex = "1.11.3"
 eframe = "0.31.0"
 epaint = "0.31.0"
 chrono = "0.4.40"

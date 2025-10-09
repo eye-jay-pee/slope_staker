@@ -20,7 +20,7 @@ impl CanPaintBreakPoint for Painter {
         run: f32,
     ) {
         let a = rect.center() + Vec2::from(breakpoint);
-        let b = a + Vec2::new(1.0, 2.0) * run;
+        let b = a + Vec2::from(breakpoint.slope) * run;
 
         if breakpoint.kind != BreakPointKind::Limit {
             self.line_segment([a, b], stroke); //impl this as slope/ui/painter
