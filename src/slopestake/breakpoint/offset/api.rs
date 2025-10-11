@@ -1,3 +1,5 @@
+use std::ops::Sub;
+
 #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Offset(f64);
 
@@ -28,6 +30,12 @@ impl From<f32> for Offset {
 impl From<Offset> for f32 {
     fn from(os: Offset) -> f32 {
         f64::from(os) as f32
+    }
+}
+impl Sub for Offset {
+    type Output = Self;
+    fn sub(self, rhs: Self) -> Self::Output {
+        Self(self.0 - rhs.0)
     }
 }
 

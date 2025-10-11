@@ -1,9 +1,23 @@
+use super::{Elevation, Offset};
+use std::ops::Mul;
+
+/// Rise per unit of run.
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Slope(f64);
 
 impl Slope {
     pub const VERTICAL_WALL: Slope = Slope(f64::INFINITY);
     pub const LEVEL_GROUND: Slope = Slope(0.0);
+
+    pub fn height_change_at(self, os: Offset) -> Elevation {
+        Elevation::from(self * os)
+    }
+}
+impl Mul<Offset> for Slope {
+    type Output = Elevation;
+    fn mul(self, rhs: Offset) -> Self::Output {
+        Elevation::from(f64::from(self) * f64::from(rhs))
+    }
 }
 
 impl Default for Slope {

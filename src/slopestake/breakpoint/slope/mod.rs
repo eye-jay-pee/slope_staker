@@ -1,3 +1,5 @@
+pub use super::{Elevation, Offset};
+
 pub mod api;
 pub use api::Slope;
 

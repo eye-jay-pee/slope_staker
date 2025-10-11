@@ -17,6 +17,17 @@ impl SlopeStake {
             println!("invalid insertion index: {index}");
         }
     }
+    pub fn is_valid(&self) -> bool {
+        for window in self.pts.windows(2) {
+            let prev = &window[0];
+            let next = &window[1];
+            if prev.elev + prev.slope * (next.offset - prev.offset) != next.elev
+            {
+                return false;
+            }
+        }
+        true
+    }
 }
 
 impl Default for SlopeStake {
