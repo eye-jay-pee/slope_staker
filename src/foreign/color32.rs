@@ -4,6 +4,7 @@ use eframe::egui::{
     Color32, Response, Ui, Widget,
 };
 
+#[allow(dead_code)]
 pub struct Color32Editor<'a>(&'a mut Color32);
 impl<'a> Widget for Color32Editor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {

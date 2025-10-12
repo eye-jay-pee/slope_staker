@@ -33,6 +33,7 @@ impl Station {
     pub fn _set_station_plus(&mut self, new_val: f32) -> () {
         self.value = self.get_station_num() as f32 + (new_val % 100.0)
     }
+    #[allow(dead_code)]
     fn get_set_raw_sta(&mut self, new_val: Option<f64>) -> f64 {
         match new_val {
             Some(v) => self.value = v as f32,
@@ -40,7 +41,14 @@ impl Station {
         };
         self.value as f64
     }
-    pub fn from_f64(v: f64) -> Self {
-        Station { value: v as f32 }
+}
+impl From<f64> for Station {
+    fn from(val: f64) -> Self {
+        Self { value: val as f32 }
+    }
+}
+impl From<f32> for Station {
+    fn from(val: f32) -> Self {
+        Self { value: val }
     }
 }

@@ -1,5 +1,6 @@
 use eframe::egui::{Response, Slider, Stroke, Ui, Widget};
 
+#[allow(dead_code)]
 pub struct StrokeEditor<'a>(&'a mut Stroke);
 impl<'a> Widget for StrokeEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
