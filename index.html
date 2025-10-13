@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Slope Staker</title>
-  </head>
+<html>
   <body>
-    <!-- The canvas your app will render into -->
     <canvas id="the_canvas_id"></canvas>
-
-    <!-- Trunk will auto-inject the compiled wasm + JS glue here -->
+    <script type="module">
+      import init, { start_app } from "./pkg/slope_staker.js";
+      init().then(() => start_app("the_canvas_id"));
+    </script>
   </body>
 </html>
