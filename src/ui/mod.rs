@@ -30,11 +30,15 @@ impl SlopeStakerApp {
                 .dyn_into::<web_sys::HtmlCanvasElement>()
                 .expect("the_canvas_id was not a HtmlCanvasElement");
 
+            let creator: eframe::AppCreator = Box::new(move |_cc| {
+                Ok(Box::new(SlopeStakerApp::default()) as Box<dyn eframe::App>)
+            });
+
             let _ = eframe::WebRunner::new()
                 .start(
                     canvas,
                     web_options,
-                    Box::new(|_cc| Ok(Box::new(SlopeStakerApp::default()))),
+                    creator,
                 )
                 .await;
         });
