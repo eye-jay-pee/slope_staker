@@ -1,4 +1,7 @@
 /target
+/misc
+
+
 tags
 
 *.DS_store
@@ -6,4 +9,5 @@ tags
 *.swp
 *.swo
 *.swm
+
 

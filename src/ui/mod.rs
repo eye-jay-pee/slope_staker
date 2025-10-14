@@ -1,7 +1,7 @@
 pub mod utilities;
 
 use crate::slopestake::{SlopeStake, SlopeStakeEditor, SlopeStakeViewer};
-use eframe::egui;
+use eframe::{Result, egui, wasm_bindgen::{JsValue, JsCast as _}};
 
 #[derive(Default)]
 pub struct SlopeStakerApp {
@@ -14,13 +14,8 @@ impl SlopeStakerApp {
         SlopeStakerApp::default()
     }
     #[cfg(target_arch = "wasm32")]
-        pub fn launch_web(self) -> Self{
-            
-        use eframe::wasm_bindgen::JsCast as _;
-
-        // Redirect `log` message to `console.log` and friends:
+    pub fn launch_web(self) -> Result<(), JsValue>{
         eframe::WebLogger::init(log::LevelFilter::Debug).ok();
-
         let web_options = eframe::WebOptions::default();
 
         wasm_bindgen_futures::spawn_local(async {
@@ -35,20 +30,18 @@ impl SlopeStakerApp {
                 .dyn_into::<web_sys::HtmlCanvasElement>()
                 .expect("the_canvas_id was not a HtmlCanvasElement");
 
-            
-            let _start_result = eframe::WebRunner::new()
+            let _ = eframe::WebRunner::new()
                 .start(
                     canvas,
                     web_options,
                     Box::new(|_cc| Ok(Box::new(SlopeStakerApp::default()))),
                 )
                 .await;
-
         });
-        self
+        Ok(())
     }
-#[cfg(not(target_arch = "wasm32"))]
-    pub fn launch_native(&self) -> eframe::Result {
+    #[cfg(not(target_arch = "wasm32"))]
+    pub fn launch_native(&self) -> Result {
         use eframe::AppCreator;
 
         let title = "slope-staker";
