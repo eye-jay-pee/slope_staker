@@ -10,7 +10,6 @@ impl<'a> OffsetEditor<'a> {
 impl<'a> Widget for OffsetEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         use eframe::egui::DragValue;
-
         ui.horizontal(|ui| {
             ui.label("O/S:");
             ui.add_sized(
