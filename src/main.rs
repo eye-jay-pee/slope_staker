@@ -6,6 +6,8 @@ use ui::SlopeStakerApp;
 
 #[cfg(target_arch = "wasm32")]
 use eframe::wasm_bindgen::JsValue;
+
+#[cfg(not(target_arch = "wasm32"))]
 use eframe::Result;
 
 #[cfg(not(target_arch = "wasm32"))]

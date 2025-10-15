@@ -13,7 +13,8 @@ impl<'a> Widget for OffsetEditor<'a> {
 
         ui.horizontal(|ui| {
             ui.label("O/S:");
-            ui.add(
+            ui.add_sized(
+                [60.0, ui.spacing().interact_size.y],
                 DragValue::new(self.0)
                     .custom_formatter(|val, _| Offset::from(val).to_string()),
             )
