@@ -13,7 +13,7 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
         let mut remove_me = None;
         let mut insert_at = None;
 
-        let n = self.0.pts.len();
+        let n = self.0.pts.borrow().len();
         let resp = ui
             .vertical(|ui| {
                 for i in 0..n {
@@ -24,7 +24,9 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
                         {
                             remove_me = Some(i);
                         }
-                        ui.add(BreakPointEditor::new(&mut self.0.pts[i]));
+                        ui.add(BreakPointEditor::new(
+                            &mut self.0.pts.borrow_mut()[i],
+                        ));
                         if ui
                             .add_enabled((0..n - 1).contains(&i), PlusButton())
                             .clicked()

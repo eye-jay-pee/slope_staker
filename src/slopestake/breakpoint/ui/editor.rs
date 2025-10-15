@@ -13,7 +13,7 @@ impl<'a> BreakPointEditor<'a> {
 impl<'a> Widget for BreakPointEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         Grid::new(Id::new(self.0 as *const _ as usize))
-            .num_columns(4)
+            .num_columns(6)
             .show(ui, |ui| {
                 ui.add_enabled(
                     self.0.kind != BreakPointKind::Crown
@@ -23,6 +23,7 @@ impl<'a> Widget for BreakPointEditor<'a> {
                 ui.add(ElevationEditor::new(&mut self.0.elev));
                 ui.add(OffsetEditor::new(&mut self.0.offset));
                 ui.add(SlopeEditor::new(&mut self.0.slope));
+                //ui.add();
             })
             .response
     }
