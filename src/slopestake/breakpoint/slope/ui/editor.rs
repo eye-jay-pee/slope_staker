@@ -35,13 +35,16 @@ impl<'a> SlopeEditor<'a> {
                 .unwrap()
                 .captures(input)?;
 
-        let run: f64 = caps.get(1)?.as_str().parse().ok()?;
-        let rise = if let Some(val) = caps.get(2) {
-            val.as_str().parse().ok()?
+        if let Ok(lt) = caps.get(1)?.as_str().parse::<f64>() {
+            if let Ok(rt) = caps.get(2)?.as_str().parse::<f64>() {
+                Some(rt / lt)
+            } else if lt.abs() > 1.0 {
+                Some(1.0 / lt)
+            } else {
+                Some(lt)
+            }
         } else {
-            1.0
-        };
-
-        Some(run / rise)
+            None
+        }
     }
 }
