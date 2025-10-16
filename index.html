@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    canvas {
-      display: block;
-      width: 500px;
-      height: 500px;
-      margin: 0 auto;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      canvas {
+        display: block;
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+      }
+    </style>
+
+    <!-- Preload and module paths must be relative -->
+    <link rel="modulepreload" href="./slope_staker-dc3de656877f0a0e.js" crossorigin="anonymous">
+    <link rel="preload" href="./slope_staker-dc3de656877f0a0e_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  </head>
+
   <body>
     <canvas id="the_canvas_id"></canvas>
+
     <script type="module">
-      import init, { start_app } from "./pkg/slope_staker.js";
-      init().then(() => start_app("the_canvas_id"));
+      import init, * as bindings from "./slope_staker-dc3de656877f0a0e.js";
+      const wasm = await init({ module_or_path: "./slope_staker-dc3de656877f0a0e_bg.wasm" });
+      window.wasmBindings = bindings;
+      dispatchEvent(new CustomEvent("TrunkApplicationStarted", { detail: { wasm } }));
     </script>
-  </body>
-      <footer>
+
+    <footer>
       <a href="https://github.com/eye-jay-pee/slope_staker/tree/master/src" target="_blank">source</a>
     </footer>
+  </body>
 </html>
-
