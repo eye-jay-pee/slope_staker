@@ -13,7 +13,7 @@ impl<'a> SlopeStakeViewer<'a> {
 impl<'a> Widget for SlopeStakeViewer<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         let (response, painter) =
-            ui.allocate_painter(Vec2::new(300.0, 300.0), Sense::empty());
+            ui.allocate_painter(Vec2::new(450.0, 450.0), Sense::empty());
 
         let stroke = Stroke::new(
             2.0,
