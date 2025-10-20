@@ -65,10 +65,10 @@ impl eframe::App for SlopeStakerApp {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical(|ui| {
                 ui.group(|ui| {
-                    ui.add(SlopeStakeEditor::new(&mut self.ss));
+                    ui.add(SlopeStakeViewer::new(&self.ss));
                 });
                 ui.group(|ui| {
-                    ui.add(SlopeStakeViewer::new(&self.ss));
+                    ui.add(SlopeStakeEditor::new(&mut self.ss));
                 });
             });
         });
