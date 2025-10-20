@@ -13,7 +13,7 @@ impl<'a> SlopeStakeViewer<'a> {
 impl<'a> Widget for SlopeStakeViewer<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         let (response, painter) =
-            ui.allocate_painter(Vec2::new(450.0, 450.0), Sense::empty());
+            ui.allocate_painter(Vec2::new(455.0, 455.0), Sense::empty());
 
         let stroke = Stroke::new(
             2.0,
@@ -24,7 +24,7 @@ impl<'a> Widget for SlopeStakeViewer<'a> {
             },
         );
         let gridlines_stroke = Stroke::new(0.4, Color32::WHITE);
-        let gridlines_freq = Vec2::new(10.0, 10.0);
+        let gridlines_freq = Vec2::new(20.0, 20.0);
 
         painter.rect_filled(response.rect, 0.0, Color32::BLACK);
         painter.grid_lines(response.rect, gridlines_stroke, gridlines_freq);
