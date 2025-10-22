@@ -36,7 +36,6 @@ impl SlopeStakerApp {
             let creator: eframe::AppCreator = Box::new(move |_cc| {
                 Ok(Box::new(SlopeStakerApp::default()) as Box<dyn eframe::App>)
             });
-
             let _ = eframe::WebRunner::new()
                 .start(
                     canvas,

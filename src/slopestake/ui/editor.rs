@@ -19,7 +19,7 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
                 for i in 0..n {
                     ui.horizontal(|ui| {
                         if ui
-                            .add_enabled((1..n - 1).contains(&i), XButton())
+                            .add_visible((1..n - 1).contains(&i), XButton())
                             .clicked()
                         {
                             remove_me = Some(i);
@@ -28,7 +28,7 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
                             &mut self.0.pts.borrow_mut()[i],
                         ));
                         if ui
-                            .add_enabled((0..n - 1).contains(&i), PlusButton())
+                            .add_visible((0..n - 1).contains(&i), PlusButton())
                             .clicked()
                         {
                             insert_at = Some(i + 1);
