@@ -24,7 +24,10 @@ impl<'a> Widget for BreakPointEditor<'a> {
                 );
                 ui.add(OffsetEditor::new(&mut self.0.offset));
                 ui.add(ElevationEditor::new(&mut self.0.elev));
-                ui.add(SlopeEditor::new(&mut self.0.slope));
+                ui.add_visible(
+                    self.0.kind != BreakPointKind::Limit,
+                    SlopeEditor::new(&mut self.0.slope),
+                );
             })
             .response
     }

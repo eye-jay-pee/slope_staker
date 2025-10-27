@@ -1,4 +1,4 @@
-use std::ops::Add;
+use std::ops::{Add, Sub};
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Elevation(f64);
@@ -7,6 +7,12 @@ impl Add for Elevation {
     type Output = Self;
     fn add(self, rhs: Self) -> Self::Output {
         Self(f64::from(self) + f64::from(rhs))
+    }
+}
+impl Sub for Elevation {
+    type Output = Self;
+    fn sub(self, rhs: Self) -> Self::Output {
+        Self(f64::from(self) - f64::from(rhs))
     }
 }
 

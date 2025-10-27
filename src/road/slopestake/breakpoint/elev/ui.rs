@@ -11,7 +11,6 @@ impl<'a> Widget for ElevationEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
         ui.horizontal(|ui| {
             ui.label("Elev:");
-            //ui.add(
             ui.add_sized(
                 [60.0, ui.spacing().interact_size.y],
                 DragValue::new(self.0).custom_formatter(|val, _| {

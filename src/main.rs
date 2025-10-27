@@ -1,5 +1,5 @@
 mod foreign;
-mod slopestake;
+mod road;
 
 mod ui;
 use ui::SlopeStakerApp;
