@@ -6,8 +6,9 @@ use eframe::{
     egui::{CentralPanel, Context},
     App, Frame,
 };
+use serde::{Deserialize, Serialize};
 
-#[derive(Default)]
+#[derive(Default, Deserialize, Serialize)]
 pub struct SlopeStakerApp {
     ss: SlopeStake,
     _road: Road,
@@ -31,5 +32,10 @@ impl App for SlopeStakerApp {
                 });
             });
         });
+    }
+    fn save(&mut self, storage: &mut dyn eframe::Storage) {
+        if let Ok(json) = serde_json::to_string(self) {
+            storage.set_string("my_app_state", json);
+        }
     }
 }

@@ -1,7 +1,11 @@
 pub mod ui;
+use serde::{Deserialize, Serialize};
+use std::hash::{Hash, Hasher};
 pub use ui::StationEditor;
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
+#[derive(
+    Copy, Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize, Default,
+)]
 pub struct Station {
     value: f32,
 }
@@ -50,5 +54,16 @@ impl From<f64> for Station {
 impl From<f32> for Station {
     fn from(val: f32) -> Self {
         Self { value: val }
+    }
+}
+impl Eq for Station {}
+
+impl Hash for Station {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        if self.value.is_nan() {
+            panic!("NaN in Station::hash");
+        }
+        // hash the bit pattern to distinguish -0.0 and +0.0
+        self.value.to_bits().hash(state);
     }
 }

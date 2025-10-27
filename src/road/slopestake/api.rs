@@ -1,9 +1,29 @@
 use super::{BreakPoint, BreakPointKind};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct SlopeStake {
     pub pts: Rc<RefCell<Vec<BreakPoint>>>,
+}
+impl Serialize for SlopeStake {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        self.pts.borrow().serialize(serializer)
+    }
+}
+impl<'de> Deserialize<'de> for SlopeStake {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let vec = Vec::<BreakPoint>::deserialize(deserializer)?;
+        Ok(SlopeStake {
+            pts: Rc::new(RefCell::new(vec)),
+        })
+    }
 }
 
 impl SlopeStake {

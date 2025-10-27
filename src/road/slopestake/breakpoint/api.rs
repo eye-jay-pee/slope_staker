@@ -1,6 +1,7 @@
 use super::{BreakPointKind, Elevation, Offset, Slope};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Default, Clone, Copy, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, Default, Clone, Copy, PartialEq)]
 pub struct BreakPoint {
     pub kind: BreakPointKind,
     pub slope: Slope,

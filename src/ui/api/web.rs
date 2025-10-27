@@ -1,4 +1,5 @@
 use eframe::wasm_bindgen::{JsCast as _, JsValue};
+use super::SlopeStakerApp;
 
 impl SlopeStakerApp {
     pub fn launch_web(self) -> Result<(), JsValue>{

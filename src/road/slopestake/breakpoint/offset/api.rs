@@ -1,6 +1,9 @@
+use serde::{Deserialize, Serialize};
 use std::ops::Sub;
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
+#[derive(
+    Debug, Deserialize, Serialize, Default, Clone, Copy, PartialEq, PartialOrd,
+)]
 pub struct Offset(f64);
 
 impl std::fmt::Display for Offset {

@@ -1,6 +1,9 @@
+use serde::{Deserialize, Serialize};
 use std::ops::{Add, Sub};
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, PartialOrd)]
+#[derive(
+    Debug, Deserialize, Serialize, Default, Clone, Copy, PartialEq, PartialOrd,
+)]
 pub struct Elevation(f64);
 
 impl Add for Elevation {

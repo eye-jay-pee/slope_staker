@@ -1,8 +1,9 @@
 use super::{Elevation, Offset};
+use serde::{Deserialize, Serialize};
 use std::ops::Mul;
 
 /// Rise per unit of run.
-#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
+#[derive(Debug, Deserialize, Serialize, Clone, Copy, PartialEq, PartialOrd)]
 pub struct Slope(f64);
 
 impl Slope {
