@@ -16,6 +16,7 @@ egui-plotter = "0.6.0"
 log = "0.4.28"
 serde_json = "1.0.145"
 serde = "1.0.228"
+serde_derive = "1.0.228"
 
 # web:
 [target.'cfg(target_arch = "wasm32")'.dependencies]

@@ -6,7 +6,7 @@ use eframe::{
     egui::{CentralPanel, Context},
     App, Frame,
 };
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Default, Deserialize, Serialize)]
 pub struct SlopeStakerApp {
