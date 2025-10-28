@@ -1,5 +1,5 @@
 pub mod ui;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use std::hash::{Hash, Hasher};
 pub use ui::StationEditor;
 
