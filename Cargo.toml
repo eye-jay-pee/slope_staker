@@ -3,10 +3,14 @@ name = "slope_staker"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+default = ["persistence"]
+persistence = []
+
 [dependencies]
 rfd = "0.15"
 regex = "1.11.3"
-eframe = "0.31.0"
+eframe = { version = "0.31.0", features = ["persistence"] }
 epaint = "0.31.0"
 chrono = "0.4.40"
 fixed = "1"

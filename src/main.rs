@@ -6,7 +6,11 @@ use ui::SlopeStakerApp;
 
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result {
-    SlopeStakerApp::new().launch_native()
+    eframe::run_native(
+        "slope staker",
+        eframe::NativeOptions::default(),
+        Box::new(|cc| Ok(Box::new(SlopeStakerApp::new(cc)))),
+    )
 }
 
 #[cfg(target_arch = "wasm32")]

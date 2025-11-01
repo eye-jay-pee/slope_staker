@@ -1,9 +1,9 @@
-use super::Road;
+use super::_Road;
 use eframe::egui::{Response, Ui, Widget};
 
-pub struct _RoadEditor<'a>(&'a mut Road);
+pub struct _RoadEditor<'a>(&'a mut _Road);
 impl<'a> _RoadEditor<'a> {
-    pub fn _new(road: &'a mut Road) -> Self {
+    pub fn _new(road: &'a mut _Road) -> Self {
         Self(road)
     }
 }

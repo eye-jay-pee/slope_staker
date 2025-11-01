@@ -1,7 +1,4 @@
-use crate::road::{
-    slopestake::{SlopeStake, SlopeStakeEditor, SlopeStakeViewer},
-    Road,
-};
+use crate::road::slopestake::{SlopeStake, SlopeStakeEditor, SlopeStakeViewer};
 use eframe::{
     egui::{CentralPanel, Context},
     App, Frame,
@@ -11,11 +8,19 @@ use serde_derive::{Deserialize, Serialize};
 #[derive(Default, Deserialize, Serialize)]
 pub struct SlopeStakerApp {
     ss: SlopeStake,
-    _road: Road,
+    //_road: Road,
 }
 
 impl SlopeStakerApp {
-    pub fn new() -> Self {
+    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
+        #[cfg(feature = "persistence")]
+        if let Some(storage) = cc.storage {
+            if let Some(app) =
+                eframe::get_value::<Self>(storage, eframe::APP_KEY)
+            {
+                return app;
+            }
+        }
         SlopeStakerApp::default()
     }
 }
@@ -34,8 +39,6 @@ impl App for SlopeStakerApp {
         });
     }
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
-        if let Ok(json) = serde_json::to_string(self) {
-            storage.set_string("my_app_state", json);
-        }
+        eframe::set_value(storage, eframe::APP_KEY, self);
     }
 }
