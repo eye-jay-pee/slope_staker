@@ -1,14 +1,33 @@
-use super::_Road;
+use super::{CrossSectionEditor, Road, Station};
 use eframe::egui::{Response, Ui, Widget};
 
-pub struct _RoadEditor<'a>(&'a mut _Road);
-impl<'a> _RoadEditor<'a> {
-    pub fn _new(road: &'a mut _Road) -> Self {
-        Self(road)
+pub struct RoadEditor<'a> {
+    road: &'a mut Road,
+    station: Station,
+}
+
+impl<'a> RoadEditor<'a> {
+    pub fn new(road: &'a mut Road) -> Self {
+        Self {
+            road: road,
+            station: Station::from(0.0),
+        }
     }
 }
-impl<'a> Widget for _RoadEditor<'a> {
-    fn ui(self, _ui: &mut Ui) -> Response {
-        todo!()
+impl<'a> Widget for RoadEditor<'a> {
+    fn ui(self, ui: &mut Ui) -> Response {
+        if let Some(cross_section) = self.road.0.get_mut(&self.station) {
+            ui.add(CrossSectionEditor::new(cross_section));
+        }
+        ui.label("bad station")
     }
 }
+
+//        ui.vertical(|ui| {
+//            ui.group(|ui| {
+//                ui.add(SlopeStakeViewer::new(&self.data.0.left));
+//            });
+//            ui.group(|ui| {
+//                ui.add(SlopeStakeEditor::new(&mut self.data.0.left));
+//            });
+//        })

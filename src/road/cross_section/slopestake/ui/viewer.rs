@@ -1,6 +1,6 @@
 use super::SlopeStake;
 use crate::foreign::PainterExt;
-use crate::road::slopestake::CanPaintBreakPoint as _;
+use crate::road::cross_section::slopestake::breakpoint::CanPaintBreakPoint as _;
 use eframe::egui::{Color32, Response, Sense, Stroke, Ui, Vec2, Widget};
 
 pub struct SlopeStakeViewer<'a>(&'a SlopeStake);

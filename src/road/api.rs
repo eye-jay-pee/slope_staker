@@ -1,17 +1,12 @@
-use super::{SlopeStake, Station};
+use super::{CrossSection, Station};
 use serde_derive::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Deserialize, Serialize)]
-pub struct _Road {
-    _left: HashMap<Station, SlopeStake>,
-    _right: HashMap<Station, SlopeStake>,
-}
-impl Default for _Road {
+pub struct Road(pub HashMap<Station, CrossSection>);
+
+impl Default for Road {
     fn default() -> Self {
-        Self {
-            _left: HashMap::new(),
-            _right: HashMap::new(),
-        }
+        Self(HashMap::new())
     }
 }

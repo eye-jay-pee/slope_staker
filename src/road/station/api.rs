@@ -1,7 +1,5 @@
-pub mod ui;
 use serde_derive::{Deserialize, Serialize};
 use std::hash::{Hash, Hasher};
-pub use ui::StationEditor;
 
 #[derive(
     Copy, Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize, Default,
@@ -38,7 +36,7 @@ impl Station {
         self.value = self.get_station_num() as f32 + (new_val % 100.0)
     }
     #[allow(dead_code)]
-    fn get_set_raw_sta(&mut self, new_val: Option<f64>) -> f64 {
+    pub fn get_set_raw_sta(&mut self, new_val: Option<f64>) -> f64 {
         match new_val {
             Some(v) => self.value = v as f32,
             None => {}

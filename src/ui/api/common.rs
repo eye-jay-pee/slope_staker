@@ -1,4 +1,10 @@
-use crate::road::slopestake::{SlopeStake, SlopeStakeEditor, SlopeStakeViewer};
+use crate::road::{
+    cross_section::slopestake::{
+        SlopeStake, SlopeStakeEditor, SlopeStakeViewer,
+    },
+    Road, RoadEditor,
+};
+
 use eframe::{
     egui::{CentralPanel, Context},
     App, Frame,
@@ -8,7 +14,7 @@ use serde_derive::{Deserialize, Serialize};
 #[derive(Default, Deserialize, Serialize)]
 pub struct SlopeStakerApp {
     ss: SlopeStake,
-    //_road: Road,
+    road: Road,
 }
 
 impl SlopeStakerApp {
@@ -28,6 +34,8 @@ impl SlopeStakerApp {
 impl App for SlopeStakerApp {
     fn update(&mut self, ctx: &Context, _frame: &mut Frame) {
         CentralPanel::default().show(ctx, |ui| {
+            ui.add(RoadEditor::new(&mut self.road));
+
             ui.vertical(|ui| {
                 ui.group(|ui| {
                     ui.add(SlopeStakeViewer::new(&self.ss));
