@@ -3,10 +3,14 @@ use serde_derive::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Deserialize, Serialize)]
-pub struct Road(pub HashMap<Station, CrossSection>);
+pub struct Road {
+    pub cross_sections: HashMap<Station, CrossSection>,
+}
 
 impl Default for Road {
     fn default() -> Self {
-        Self(HashMap::new())
+        Self {
+            cross_sections: HashMap::new(),
+        }
     }
 }

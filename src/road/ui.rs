@@ -1,4 +1,4 @@
-use super::{CrossSectionEditor, Road, Station};
+use super::{CrossSectionEditor, Road, Station, StationEditor};
 use eframe::egui::{Response, Ui, Widget};
 
 pub struct RoadEditor<'a> {
@@ -15,11 +15,26 @@ impl<'a> RoadEditor<'a> {
     }
 }
 impl<'a> Widget for RoadEditor<'a> {
-    fn ui(self, ui: &mut Ui) -> Response {
-        if let Some(cross_section) = self.road.0.get_mut(&self.station) {
-            ui.add(CrossSectionEditor::new(cross_section));
-        }
-        ui.label("bad station")
+    fn ui(mut self, ui: &mut Ui) -> Response {
+        ui.vertical(|ui| {
+            ui.add(StationEditor::new(&mut self.station));
+
+            match &mut self.road.cross_sections.get_mut(&self.station) {
+                Some(cs) => ui.add(CrossSectionEditor::new(cs)),
+                None => {
+                    ui.horizontal(|ui| {
+                        ui.label("no cross section at this station");
+                        let resp = ui.button("add one?");
+                        if resp.clicked() {
+                            println!("a cross sectino needs to be added");
+                        }
+                        resp
+                    })
+                    .response
+                }
+            }
+        })
+        .response
     }
 }
 

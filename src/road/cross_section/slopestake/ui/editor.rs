@@ -1,5 +1,5 @@
-use super::{BreakPoint, BreakPointEditor, SlopeStake};
-use crate::ui::utilities::{PlusButton, XButton};
+use super::{BreakPoint, BreakPointEditor, SlopeStake, SlopeStakeViewer};
+use crate::ui::utilities::MiniButton;
 use eframe::egui::{Response, Ui, Widget};
 
 pub struct SlopeStakeEditor<'a>(&'a mut SlopeStake);
@@ -16,25 +16,36 @@ impl<'a> Widget for SlopeStakeEditor<'a> {
         let n = self.0.pts.borrow().len();
         let resp = ui
             .vertical(|ui| {
-                for i in 0..n {
-                    ui.horizontal(|ui| {
-                        if ui
-                            .add_visible((1..n - 1).contains(&i), XButton())
-                            .clicked()
-                        {
-                            remove_me = Some(i);
-                        }
-                        ui.add(BreakPointEditor::new(
-                            &mut self.0.pts.borrow_mut()[i],
-                        ));
-                        if ui
-                            .add_visible((0..n - 1).contains(&i), PlusButton())
-                            .clicked()
-                        {
-                            insert_at = Some(i + 1);
-                        }
-                    });
-                }
+                ui.group(|ui| {
+                    ui.add(SlopeStakeViewer::new(&self.0));
+                });
+                ui.group(|ui| {
+                    for i in 0..n {
+                        ui.horizontal(|ui| {
+                            if ui
+                                .add_visible(
+                                    (1..n - 1).contains(&i),
+                                    MiniButton::Kill,
+                                )
+                                .clicked()
+                            {
+                                remove_me = Some(i);
+                            }
+                            ui.add(BreakPointEditor::new(
+                                &mut self.0.pts.borrow_mut()[i],
+                            ));
+                            if ui
+                                .add_visible(
+                                    (0..n - 1).contains(&i),
+                                    MiniButton::New,
+                                )
+                                .clicked()
+                            {
+                                insert_at = Some(i + 1);
+                            }
+                        });
+                    }
+                });
             })
             .response;
 

@@ -1,13 +1,13 @@
-use super::*;
+use super::Station;
+use crate::ui::utilities::prefab_buttons::MiniButton;
 use eframe::egui::{Response, Ui, Widget};
 
 impl<'a> StationEditor<'a> {
-    pub fn _new(sta: &'a mut Station) -> Self {
+    pub fn new(sta: &'a mut Station) -> Self {
         Self(sta)
     }
 }
 
-#[allow(dead_code)]
 pub struct StationEditor<'a>(&'a mut Station);
 impl<'a> Widget for StationEditor<'a> {
     fn ui(self, ui: &mut Ui) -> Response {
@@ -18,6 +18,8 @@ impl<'a> Widget for StationEditor<'a> {
 
         ui.horizontal(|ui| {
             ui.label("Station:");
+            ui.add(MiniButton::New);
+            ui.add(MiniButton::Kill);
             ui.add(dv)
         })
         .response

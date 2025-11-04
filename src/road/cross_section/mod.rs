@@ -1,5 +1,5 @@
 pub mod slopestake;
-pub use slopestake::SlopeStake;
+pub use slopestake::{SlopeStake, SlopeStakeEditor};
 
 pub mod api;
 pub use api::CrossSection;

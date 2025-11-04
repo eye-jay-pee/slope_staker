@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use crate::road::{
     cross_section::slopestake::{
         SlopeStake, SlopeStakeEditor, SlopeStakeViewer,
@@ -35,15 +36,6 @@ impl App for SlopeStakerApp {
     fn update(&mut self, ctx: &Context, _frame: &mut Frame) {
         CentralPanel::default().show(ctx, |ui| {
             ui.add(RoadEditor::new(&mut self.road));
-
-            ui.vertical(|ui| {
-                ui.group(|ui| {
-                    ui.add(SlopeStakeViewer::new(&self.ss));
-                });
-                ui.group(|ui| {
-                    ui.add(SlopeStakeEditor::new(&mut self.ss));
-                });
-            });
         });
     }
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
