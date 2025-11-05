@@ -1,5 +1,6 @@
 use eframe::egui::{Button, Color32, Response, RichText, Ui, Widget};
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum MiniButton {
     New,

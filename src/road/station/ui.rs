@@ -1,5 +1,4 @@
 use super::Station;
-use crate::ui::utilities::prefab_buttons::MiniButton;
 use eframe::egui::{Response, Ui, Widget};
 
 impl<'a> StationEditor<'a> {
@@ -18,9 +17,7 @@ impl<'a> Widget for StationEditor<'a> {
 
         ui.horizontal(|ui| {
             ui.label("Station:");
-            ui.add(MiniButton::New);
-            ui.add(MiniButton::Kill);
-            ui.add(dv)
+            ui.add(dv);
         })
         .response
     }

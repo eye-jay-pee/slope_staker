@@ -1,4 +1,4 @@
-use super::{CrossSection, SlopeStakeEditor};
+use super::{CrossSection, SlopeStake, SlopeStakeEditor};
 use eframe::egui::{Response, Ui, Widget};
 
 #[derive(PartialEq, Eq)]
@@ -28,12 +28,14 @@ impl<'a> Widget for CrossSectionEditor<'a> {
                 ui.radio_value(&mut self.side, Side::Left, "Left");
                 ui.radio_value(&mut self.side, Side::Right, "Right");
             });
-            let cs = match self.side {
-                Side::Left => &mut self.cross_section.left,
-                Side::Right => &mut self.cross_section.right,
+            let side = match self.side {
+                Side::Left => &mut self.cross_section.left.clone(),
+                Side::Right => &mut self.cross_section.right.clone(),
             };
-
-            ui.add(SlopeStakeEditor::new(cs));
+            if side.is_none() {
+                *side = Some(SlopeStake::default());
+            }
+            ui.add(SlopeStakeEditor::new(&mut side.as_mut().unwrap()))
         })
         .response
     }
